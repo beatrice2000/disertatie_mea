@@ -31,10 +31,6 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak_db
-      KC_DB_USERNAME: username
-      KC_DB_PASSWORD: password
     depends_on:
       - postgres
     networks:
@@ -48,4 +44,6 @@ networks:
 
 volumes:
   postgres:
+    driver: local
+  keycloak:
     driver: local
