@@ -24,7 +24,7 @@ pipeline {
             }
 
             stage('Archive JAR') {
-                steps
+                steps {
                     dir('book-network') {
                         archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                     }
