@@ -11,6 +11,12 @@ pipeline {
     }
 
      stages {
+            stage('Java Version') {
+                steps {
+                    bat 'java -version'
+                }
+            }
+
             stage('Build') {
                 steps {
                     dir('book-network') {
