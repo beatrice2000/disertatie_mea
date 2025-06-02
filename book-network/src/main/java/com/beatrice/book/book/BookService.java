@@ -5,7 +5,10 @@ import com.beatrice.book.exception.OperationNotPermittedException;
 import com.beatrice.book.file.FileStorageService;
 import com.beatrice.book.history.BookTransactionHistory;
 import com.beatrice.book.history.BookTransactionHistoryRepository;
+import com.beatrice.book.search.BookDocument;
+import com.beatrice.book.search.BookSearchRepository;
 import com.beatrice.book.user.User;
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,7 +18,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import com.beatrice.book.search.BookSearchRepository;
 
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,13 +35,18 @@ public class BookService {
     private final BookTransactionHistoryRepository bookTransactionHistoryRepository;
     private final BookMapper bookMapper;
     private final FileStorageService fileStorageService;
+    private final BookSearchRepository bookSearchRepository;
+
 
 
     public Integer save(BookRequest request, Authentication connectedUser) {
       //  User user = ((User) connectedUser.getPrincipal());
         Book book = bookMapper.toBook(request);
+        Book savedBook = bookRepository.save(book); // salvează în Postgres
       //  book.setOwner(user);
-        return bookRepository.save(book).getId();
+      //  return bookRepository.save(book).getId();
+        bookSearchRepository.save(bookMapper.toDocument(savedBook));
+        return savedBook.getId(); // returnează ID-ul
     }
 
     public BookResponse findById(Integer bookId) {
@@ -256,4 +267,27 @@ public class BookService {
         book.setBookCover(bookCover);
         bookRepository.save(book);
     }
+
+    public List<BookResponse> searchBooks(String query) {
+        List<Book> books = bookRepository.findByTitleContainingIgnoreCaseOrAuthorNameContainingIgnoreCase(query, query);
+        return books.stream()
+                .map(bookMapper::toBookResponse)
+                .toList();
+    }
+
+    @PostConstruct
+    public void migrateBooksToElasticsearch() {
+        List<Book> allBooks = bookRepository.findAll();
+        System.out.println("Found in Postgres: " + allBooks.size());
+
+
+        List<BookDocument> documents = allBooks.stream()
+                .map(bookMapper::toDocument)
+                .toList();
+        bookSearchRepository.saveAll(documents);
+        System.out.println("Books migrated to Elasticsearch: " + documents.size());
+    }
+
+
+
 }

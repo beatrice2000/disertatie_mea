@@ -38,6 +38,21 @@ services:
     command:
       - "start-dev"
 
+  elasticsearch:
+    container_name: elasticsearch-bn
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - 9200:9200
+    networks:
+      - spring-network
+    volumes:
+      - elastic_data:/usr/share/elasticsearch/data
+
+
 networks:
   spring-network:
     driver: bridge
@@ -46,4 +61,6 @@ volumes:
   postgres:
     driver: local
   keycloak:
+    driver: local
+  elastic_data:
     driver: local

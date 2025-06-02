@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface BookRepository extends JpaRepository<Book, Integer>, JpaSpecificationExecutor<Book> {
 
     @Query("""
@@ -16,4 +18,6 @@ public interface BookRepository extends JpaRepository<Book, Integer>, JpaSpecifi
             AND book.createdBy != :userId
             """)
     Page<Book> findAllDisplayableBooks(Pageable pageable, String userId);
+
+    List<Book> findByTitleContainingIgnoreCaseOrAuthorNameContainingIgnoreCase(String title, String authorName);
 }

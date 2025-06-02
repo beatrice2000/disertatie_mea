@@ -9,10 +9,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
+
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAsync
+@EnableElasticsearchRepositories(basePackages = "com.beatrice.book.search")
 public class BookNetworkApiApplication {
 
 	public static void main(String[] args) {

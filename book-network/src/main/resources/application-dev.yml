@@ -4,6 +4,9 @@ spring:
     username: username
     password: password
     driver-class-name: org.postgresql.Driver
+  data:
+    elasticsearch:
+      uris: http://elasticsearch-bn:9200
   jpa:
     hibernate:
       ddl-auto: update
@@ -33,6 +36,9 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: "http://localhost:9090/realms/book-social-network"
+  web:
+    resources:
+      static-locations: file:./uploads/
 application:
   file:
     upload:

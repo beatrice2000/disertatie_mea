@@ -2,6 +2,7 @@ package com.beatrice.book.book;
 
 import com.beatrice.book.file.FileUtils;
 import com.beatrice.book.history.BookTransactionHistory;
+import com.beatrice.book.search.BookDocument;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -45,4 +46,16 @@ public class BookMapper {
                 .returnApproved(history.isReturnApproved())
                 .build();
     }
+
+    public BookDocument toDocument(Book book) {
+        BookDocument doc = new BookDocument();
+        doc.setId(book.getId().toString());
+        doc.setTitle(book.getTitle());
+        doc.setAuthorName(book.getAuthorName());
+        doc.setIsbn(book.getIsbn());
+        doc.setResume(book.getResume());
+        doc.setBookCover(book.getBookCover()); // salvează doar path-ul (ex: ./uploads/users/xyz.jpg)
+        return doc;
+    }
+
 }

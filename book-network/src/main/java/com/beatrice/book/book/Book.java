@@ -57,8 +57,6 @@ public class Book extends BaseEntity {
         double roundedRate = Math.round(rate * 10.0) / 10.0;
         return roundedRate;
 
-
-
     }
 
 }

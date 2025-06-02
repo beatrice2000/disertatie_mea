@@ -1,6 +1,8 @@
 package com.beatrice.book.book;
 
 import com.beatrice.book.common.PageResponse;
+import com.beatrice.book.search.BookDocument;
+import com.beatrice.book.search.BookSearchService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -10,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("books")
 @RequiredArgsConstructor
@@ -17,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class BookController {
 
     private final BookService service;
+    private final BookSearchService bookSearchService;
 
     @PostMapping
     public ResponseEntity<Integer> saveBook(
@@ -131,5 +136,25 @@ public class BookController {
         service.uploadBookCoverPicture(file, connectedUser, bookId);
         return ResponseEntity.accepted().build();
     }
+
+    // adaug endpoint pentru cautarea unei carti
+    @GetMapping("/search")
+    public ResponseEntity<List<BookResponse>> searchBooks(
+            @RequestParam("query") String query
+    ) {
+        return ResponseEntity.ok(service.searchBooks(query));
+    }
+
+    // elk
+    @GetMapping("/search-es")
+    public ResponseEntity<List<BookDocument>> searchBooksElasticsearch(@RequestParam String query) {
+        long start = System.currentTimeMillis();
+        List<BookDocument> results = bookSearchService.fuzzySearch(query);
+        long time = System.currentTimeMillis() - start;
+        System.out.println("ElasticSearch search took: " + time + " ms");
+        return ResponseEntity.ok(results);
+    }
+
+
 
 }
