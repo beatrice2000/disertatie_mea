@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven 3.9.1'
+        jdk 'JDK 17'
+    }
+
+    environment {
+        SPRING_PROFILES_ACTIVE = 'dev'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://git-your-repo-url.git', branch: 'main'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Archive JAR') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+    }
+}
