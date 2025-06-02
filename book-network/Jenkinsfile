@@ -10,29 +10,23 @@ pipeline {
         SPRING_PROFILES_ACTIVE = 'dev'
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://git-your-repo-url.git', branch: 'main'
+     stages {
+            stage('Build') {
+                steps {
+                    bat 'mvn clean package -DskipTests'
+                }
             }
-        }
 
-        stage('Build') {
-            steps {
-                sh 'mvn clean package -DskipTests'
+            stage('Test') {
+                steps {
+                    bat 'mvn test'
+                }
             }
-        }
 
-        stage('Test') {
-            steps {
-                sh 'mvn test'
+            stage('Archive JAR') {
+                steps {
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                }
             }
-        }
-
-        stage('Archive JAR') {
-            steps {
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-            }
-        }
-    }
+     }
 }
