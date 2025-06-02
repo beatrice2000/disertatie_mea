@@ -5,6 +5,9 @@ import com.beatrice.book.history.BookTransactionHistory;
 import com.beatrice.book.search.BookDocument;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
+import java.util.List;
+
 @Service
 public class BookMapper {
     public Book toBook(BookRequest request) {
@@ -54,7 +57,8 @@ public class BookMapper {
         doc.setAuthorName(book.getAuthorName());
         doc.setIsbn(book.getIsbn());
         doc.setResume(book.getResume());
-        doc.setBookCover(book.getBookCover()); // salvează doar path-ul (ex: ./uploads/users/xyz.jpg)
+        String relativePath = book.getBookCover().replace(System.getProperty("user.dir"), "");
+        doc.setBookCover("http://localhost:8080" + relativePath.replace("\\", "/"));
         return doc;
     }
 
