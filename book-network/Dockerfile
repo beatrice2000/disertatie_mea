@@ -1,14 +1,12 @@
-# Folosește o imagine oficială OpenJDK
-FROM openjdk:17-jdk-slim
+# Etapa 1 – Build cu Maven
+FROM maven:3.8.5-eclipse-temurin-17 AS builder
+WORKDIR /build
+COPY . .
+RUN ./mvnw clean package -DskipTests
 
-# Setează directorul de lucru
+# Etapa 2 – Imagine finală cu JAR
+FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
-
-# Copiază JAR-ul construit 
-COPY target/*.jar app.jar
-
-# Expune portul pe care Spring Boot rulează 
+COPY --from=builder /build/target/book-network-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8088
-
-# Comandă de start
 ENTRYPOINT ["java", "-jar", "app.jar"]
