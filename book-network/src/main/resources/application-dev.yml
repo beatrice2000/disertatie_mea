@@ -6,7 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   data:
     elasticsearch:
-      uris: http://elasticsearch-bn:9200
+      uris: http://elasticsearch:9200
   jpa:
     hibernate:
       ddl-auto: update
