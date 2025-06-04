@@ -7,6 +7,16 @@ spring:
   data:
     elasticsearch:
       uris: http://elasticsearch:9200
+      connection-timeout: 5s
+      socket-timeout: 5s
+  
+  retry:
+    enable: true
+    max-attempts: 10
+    initial-interval: 2000
+    multiplier: 2.0
+    
+    
   jpa:
     hibernate:
       ddl-auto: update
