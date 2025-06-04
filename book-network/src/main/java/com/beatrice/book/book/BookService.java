@@ -275,7 +275,7 @@ public class BookService {
                 .toList();
     }
 
-    @PostConstruct
+   // @PostConstruct
     public void migrateBooksToElasticsearch() {
         List<Book> allBooks = bookRepository.findAll();
         System.out.println("Found in Postgres: " + allBooks.size());
