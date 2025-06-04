@@ -20,7 +20,7 @@ export function kcFactory(kcService: KeycloakService) {
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ActivateAccountComponent
+    ActivateAccountComponent,
   ],
   imports: [
     BrowserModule,

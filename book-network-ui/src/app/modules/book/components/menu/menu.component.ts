@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {KeycloakService} from "../../../../services/keycloak/keycloak.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -8,11 +9,15 @@ import {KeycloakService} from "../../../../services/keycloak/keycloak.service";
 })
 export class MenuComponent {
 
+
   constructor(
-    private keycloakService: KeycloakService
+    private keycloakService: KeycloakService,
+    private router: Router
   ){
   }
 
+  searchQuery: string = '';
+  advancedSearchQuery: string = '';
   userName: string = '';
 
   ngOnInit(): void {
@@ -31,7 +36,21 @@ export class MenuComponent {
     this.userName = tokenParsed?.['given_name'];
   }
 
+  onSearch(): void {
+    if (this.searchQuery.trim()) {
+      this.router.navigate(['/books'], { queryParams: { query: this.searchQuery } });
+    }
+  }
+
   async logout() {
     this.keycloakService.logout();
+  }
+
+  onAdvancedSearch() {
+    if (this.advancedSearchQuery.trim()) {
+      this.router.navigate(['/books'], {
+        queryParams: { advancequery: this.advancedSearchQuery }
+      });
+    }
   }
 }

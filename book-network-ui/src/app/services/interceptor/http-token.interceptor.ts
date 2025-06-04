@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor, HttpHeaders
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 import {KeycloakService} from "../keycloak/keycloak.service";
 
 @Injectable()

@@ -35,9 +35,19 @@
         </li>
       </ul>
       <form class="d-flex gap-2 align-items-center" role="search">
-        <input class="form-control" type="search" placeholder="Find a book" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
-        <span>Welcome,</span>
+        <input type="text" class="form-control" [(ngModel)]="searchQuery" name="search" placeholder="Find a book" (keyup.enter)="onSearch()" />
+        <button class="btn btn-outline-success me-3" (click)="onSearch()">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+      <form class="d-flex gap-2 align-items-center" role="search" (ngSubmit)="onAdvancedSearch()">
+        <input type="text" class="form-control" [(ngModel)]="advancedSearchQuery" name="advancedSearch" placeholder="Advanced Search Book" (keyup.enter)="onAdvancedSearch()"/>
+        <button class="btn btn-outline-success me-3" (click)="onAdvancedSearch()">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+      <form>
+        <span>Welcome, </span>
         <span class="text-capitalize fw-bold">{{ userName }}</span>
         <button class="btn btn-link" type="submit" (click)="logout()"><i class="fas fa-door-open"></i></button>
       </form>

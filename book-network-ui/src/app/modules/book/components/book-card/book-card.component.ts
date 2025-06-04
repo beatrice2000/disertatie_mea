@@ -30,9 +30,16 @@ export class BookCardComponent {
   }
 
   get bookCover(): string | undefined {
-    if (this._book.cover) {
+
+    // PostgreSQL image base64
+    if (this._book.cover?.length) {
       return 'data:image/jpg;base64, ' + this._book.cover;
     }
+
+    // cazul Elasticsearch - imagine servită prin URL (ex: ./uploads/...)
+   // if (this._book.bookCover?.startsWith('http')) {
+   //   return this._book.bookCover;
+   // }
     return 'https://fastly.picsum.photos/id/902/900/800.jpg?hmac=V5IFRTvWjRDaI7KR_ZY9VOWjMVmqaxQTNAt_B1le-kw';
   }
 

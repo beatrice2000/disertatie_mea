@@ -347,4 +347,22 @@ export class BookService extends BaseService {
     );
   }
 
+  /**
+   * Search books by title or author.
+   * This method calls /books/search?query=...
+   */
+  searchBooks(query: string): Observable<BookResponse[]> {
+    const url = `${this.rootUrl}/books/search`;
+    return this.http.get<BookResponse[]>(url, {
+      params: { query }
+    });
+  }
+
+
+  searchBooksWithElasticsearch(searchQuery: string): Observable<BookResponse[]> {
+    const url: string = `${this.rootUrl}/books/search-es`;
+    return this.http.get<BookResponse[]>(url, {
+      params: { query: searchQuery }
+    });
+  }
 }

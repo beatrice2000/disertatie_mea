@@ -1,4 +1,7 @@
 <h3>Books list</h3>
+<div *ngIf="wasFuzzy && isAdvancedSearch" class="alert alert-info text-center">
+  No exact matches found for "{{ searchQuery }}". Showing similar results.
+</div>
 <div
   *ngIf="message"
   class="alert"
@@ -14,6 +17,20 @@
     [book]="book"
     (borrow)="borrowBook($event)"
   ></app-book-card>
+</div>
+
+<div *ngIf="searchQuery && bookResponse.content?.length === 0">
+  <p class="text-center mt-3 text-muted">
+    No books found for "{{ searchQuery }}".
+  </p>
+</div>
+
+<div *ngIf="(isPostgresSearch || isAdvancedSearch) && searchQuery">
+  <p class="text-muted text-center mt-2">
+    Found {{ bookResponse.content?.length || 0 }}
+    {{ bookResponse.content?.length === 1 ? 'result' : 'results' }}
+    in {{ (searchDuration / 1000) | number:'1.2-2' }} seconds.
+  </p>
 </div>
 
 <div class="d-flex justify-content-center mt-3">
