@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.beatrice.book.search.BookSearchRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.util.Collections;
@@ -35,6 +36,7 @@ public class BookService {
     private final BookTransactionHistoryRepository bookTransactionHistoryRepository;
     private final BookMapper bookMapper;
     private final FileStorageService fileStorageService;
+    @Autowired(required = false)
     private final BookSearchRepository bookSearchRepository;
 
 
