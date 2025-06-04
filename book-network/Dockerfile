@@ -2,6 +2,7 @@
 FROM maven:3.8.5-eclipse-temurin-17 AS builder
 WORKDIR /build
 COPY . .
+RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 # Etapa 2 – Imagine finală cu JAR
