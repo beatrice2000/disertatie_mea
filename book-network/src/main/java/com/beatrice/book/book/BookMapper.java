@@ -57,8 +57,6 @@ public class BookMapper {
         doc.setAuthorName(book.getAuthorName());
         doc.setIsbn(book.getIsbn());
         doc.setResume(book.getResume());
-        String relativePath = book.getBookCover().replace(System.getProperty("user.dir"), "");
-        doc.setBookCover("http://localhost:8080" + relativePath.replace("\\", "/"));
         return doc;
     }
 
