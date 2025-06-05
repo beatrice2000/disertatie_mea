@@ -52,7 +52,6 @@ services:
     volumes:
       - elastic_data:/usr/share/elasticsearch/data
 
-
 networks:
   spring-network:
     driver: bridge
