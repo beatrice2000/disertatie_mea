@@ -1,4 +1,4 @@
-package com.beatrice.book.auth;
+/* package com.beatrice.book.auth;
 
 import com.beatrice.book.email.EmailService;
 import com.beatrice.book.email.EmailTemplateName;
@@ -134,5 +134,6 @@ public class AuthenticationService {
         savedToken.setValidatedAt(LocalDateTime.now());
         tokenRepository.save(savedToken);
     }
- */
+
 }
+*/

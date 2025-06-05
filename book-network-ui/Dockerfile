@@ -1,11 +1,19 @@
-FROM node:20
+FROM node:16 as build-stage
 
 WORKDIR /app
 
+COPY package*.json ./
+
+RUN npm install
+
 COPY . .
 
-RUN npm install -g @angular/cli && npm install
+RUN npm run build
 
-EXPOSE 4200
+FROM nginx:alpine
 
-CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
+COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build-stage /app/dist/book-network-ui /usr/share/nginx/html
+
+EXPOSE 80

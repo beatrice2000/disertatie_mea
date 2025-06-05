@@ -1,4 +1,5 @@
-package com.beatrice.book.email;
+/*package com.beatrice.book.email;
+
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -17,7 +18,7 @@ import java.util.Map;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE_MIXED;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 
 public class EmailService {
@@ -73,3 +74,4 @@ public class EmailService {
         mailSender.send(mimeMessage);
     }
 }
+*/

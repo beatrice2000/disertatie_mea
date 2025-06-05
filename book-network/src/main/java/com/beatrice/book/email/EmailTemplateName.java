@@ -1,4 +1,4 @@
-package com.beatrice.book.email;
+/*package com.beatrice.book.email;
 
 import lombok.Getter;
 
@@ -14,3 +14,4 @@ public enum EmailTemplateName {
         this.name = name;
     }
 }
+ */
