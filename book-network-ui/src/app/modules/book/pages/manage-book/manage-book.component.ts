@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BookRequest} from "../../../../services/models/book-request";
 import {BookService} from "../../../../services/services/book.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {KeycloakService} from "../../../../services/keycloak/keycloak.service";
 
 @Component({
   selector: 'app-manage-book',
@@ -10,17 +11,20 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class ManageBookComponent implements OnInit {
 
-  bookRequest: BookRequest = {authorName: '', isbn: '', resume: '', title: ''};
+  bookRequest: BookRequest = {authorName: '', isbn: '', resume: '', title: '', ownerName: ''};
   errorMsg: Array<string> = [];
   selectedPicture: string | undefined;
   selectedBookCover: any;
 
+
   constructor(
     private bookService: BookService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private keycloakService: KeycloakService
   ) {
   }
+
 
   onFileSelected(event: any) {
     this.selectedBookCover = event.target.files[0];
@@ -37,6 +41,11 @@ export class ManageBookComponent implements OnInit {
   }
 
   saveBook() {
+    const tokenParsed = this.keycloakService.keycloak.tokenParsed;
+    const ownerName = tokenParsed?.['name'] || tokenParsed?.['preferred_username'];
+
+    this.bookRequest.ownerName = ownerName;
+
     this.bookService.saveBook({
       body: this.bookRequest
     }).subscribe({
@@ -72,7 +81,8 @@ export class ManageBookComponent implements OnInit {
             authorName: book.authorName as string,
             isbn: book.isbn as string,
             resume: book.resume as string,
-            shareable: book.shareable
+            shareable: book.shareable,
+            ownerName: book.ownerName
           };
           this.selectedPicture='data:image/jpg;base64,' + book.cover;
         }

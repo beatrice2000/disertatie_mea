@@ -7,4 +7,5 @@ export interface BookRequest {
   resume: string;
   shareable?: boolean;
   title: string;
+  ownerName?: string;
 }

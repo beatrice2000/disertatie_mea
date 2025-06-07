@@ -20,6 +20,8 @@ public class BookResponse {
     // cele doua flag-uri
     private boolean archived;
     private boolean shareable;
+    //
+    private String ownerName;
 
 
 }

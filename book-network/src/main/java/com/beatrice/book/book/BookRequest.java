@@ -17,6 +17,7 @@ public record BookRequest(
         @NotNull(message = "103")
         @NotEmpty(message = "103")
         String resume, // rezumatul cartii
-        boolean sharable //daca carte poate fi data sau nu
+        boolean sharable, //daca carte poate fi data sau nu
+        String ownerName
 ) {
 }
