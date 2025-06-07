@@ -1,4 +1,5 @@
-package com.beatrice.book.email;
+/*package com.beatrice.book.email;
+
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -73,3 +74,4 @@ public class EmailService {
         mailSender.send(mimeMessage);
     }
 }
+*/

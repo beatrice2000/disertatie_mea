@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/book_network_db
+    url: jdbc:postgresql://postgres-sql-bn:5432/book_network_db
     username: username
     password: password
     driver-class-name: org.postgresql.Driver
@@ -20,7 +20,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: "http://localhost:9090/realms/book-social-network"
+          issuer-uri: "http://keycloak-bsn:9090/realms/book-social-network"
   web:
     resources:
       static-locations: file:./uploads/
