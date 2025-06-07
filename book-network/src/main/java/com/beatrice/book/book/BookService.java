@@ -252,11 +252,11 @@ public class BookService {
             // returnez execeptie userul nu ar trebui sa dea approve la o carte pe care nu o detine
             throw new OperationNotPermittedException("You are not allowed to approve a book that you don't own.");
         }
-
         // verifica ca userul a imprumutat deja cartea
         BookTransactionHistory bookTransactionHistory = bookTransactionHistoryRepository.findByBookIdAndOwnerId(bookId, connectedUser.getName())
                 .orElseThrow(() -> new OperationNotPermittedException("You cannot approve the return of this book because the book it is not returned yet.")); // daca nu gasesc nicio tranzactie si niciun user pt carte inseamna ca userul nu a imprumutat aceasta carte
         bookTransactionHistory.setReturned(true);
+        bookTransactionHistory.setReturnApproved(true);
         return bookTransactionHistoryRepository.save(bookTransactionHistory).getId();
 
     }

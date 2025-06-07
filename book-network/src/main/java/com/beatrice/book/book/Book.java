@@ -30,7 +30,8 @@ public class Book extends BaseEntity {
     private boolean archived; // un user poate arhiva o carte
     private boolean sharable; //daca carte poate fi data sau nu
 
-
+    @Column(name = "owner_name")
+    private String ownerName;
    // @ManyToOne // multiple carti sunt asociate unui user
    // @JoinColumn(name = "owner_id") // maparea intre book si user
    // private User owner;

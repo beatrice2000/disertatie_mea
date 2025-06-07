@@ -40,6 +40,6 @@ public class BaseEntity {
     private String createdBy;
 
     @LastModifiedBy
-    @Column(insertable = false) // facem modificari la coalana asta doar cand facem un update
+    @Column(insertable = false) // fac modificari la coloana asta doar cand fac un update
     private String lastModifiedBy; // cine a modificat ultima data carte
 }

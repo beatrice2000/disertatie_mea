@@ -12,4 +12,5 @@ export interface BookResponse {
   resume?: string;
   shareable?: boolean;
   title?: string;
+  ownerName?: string;
 }

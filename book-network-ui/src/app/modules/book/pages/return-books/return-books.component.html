@@ -30,9 +30,14 @@
       <td><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
       <td>
         <div class="d-flex gap-2">
-          <i *ngIf="book.returned" class="cursor-pointer fa-regular fa-paper-plane text-primary"></i>
-          <i *ngIf="!book.returned"  class="cursor-pointer fa-solid fa-paper-plane text-success"></i>
-          <i class="cursor-pointer fa-solid fa-circle-check" (click)="approveBookReturn(book)" [class.text-success]="book.returnApproved"></i>
+          <i *ngIf="book.returned" class="cursor-pointer fa-regular fa-paper-plane text-success" title="Book was returned"></i>
+          <i *ngIf="!book.returned"  class="cursor-pointer fa-solid fa-paper-plane text-danger" title="Book is not returned"></i>
+          <i
+            class="cursor-pointer fa-solid fa-circle-check"
+            (click)="approveBookReturn(book)"
+            [ngClass]="{ 'text-success': book.returnApproved, 'text-danger': !book.returnApproved}"
+            [attr.title]="book.returnApproved? 'Return approved' : 'Click to approve the return'">
+          </i>
         </div>
       </td>
     </tr>
