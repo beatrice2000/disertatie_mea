@@ -72,25 +72,6 @@ services:
       timeout: 5s
       retries: 5
 
-
-  bsn-api:
-    container_name: bsn-api
-    image: bsn/bsn:1.0.8
-    ports:
-      - 8088:8088
-    networks:
-      - spring-network
-    depends_on:
-      - postgres
-      - elasticsearch
-    environment:
-      SPRING_PROFILES_ACTIVE: dev
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-sql-bn:5432/book_network_db
-      SPRING_DATASOURCE_USERNAME: username
-      SPRING_DATASOURCE_PASSWORD: password
-      SPRING_DATA_ELASTICSEARCH_URIS: http://elasticsearch-bn:9200
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak-bsn:8080/realms/book-social-network
-
   bsn-ui:
     container_name: bsn-ui
     image: bsn/bsn-ui:1.0.0
