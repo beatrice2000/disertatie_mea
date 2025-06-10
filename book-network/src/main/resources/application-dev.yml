@@ -24,8 +24,6 @@ spring:
   web:
     resources:
       static-locations: file:./uploads/
-  elasticsearch:
-    uris: elasticsearch-bn:9200
 application:
   file:
     upload:
