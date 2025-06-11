@@ -21,8 +21,8 @@ pipeline {
                         steps {
                             bat '''
                             docker ps -a -q -f name=postgres-sql-bn | findstr . >nul && docker start postgres-sql-bn || docker-compose up -d postgres
-                            docker ps -a -q -f name=elasticsearch-bn | findstr . >nul && docker start elasticsearch-bn || docker-compose -f  up -d elasticsearch
-                            docker ps -a -q -f name=keycloak-bsn | findstr . >nul && docker start keycloak-bsn || docker-compose -f up -d keycloak '''
+                            docker ps -a -q -f name=elasticsearch-bn | findstr . >nul && docker start elasticsearch-bn || docker-compose up -d elasticsearch
+                            docker ps -a -q -f name=keycloak-bsn | findstr . >nul && docker start keycloak-bsn || docker-compose up -d keycloak '''
                             bat 'docker-compose exec elasticsearch curl --retry 10 --retry-delay 5 -s -f http://localhost:9200/_cluster/health || exit 1'
                         }
                     }
