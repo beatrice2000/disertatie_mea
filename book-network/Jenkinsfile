@@ -19,7 +19,7 @@ pipeline {
 
             stage('Start Containers') {
                         steps {
-                            bat 'docker-compose -f ../docker-compose.yml up -d postgres elasticsearch keycloak'
+                            bat 'docker-compose up -d postgres elasticsearch keycloak'
                             bat 'timeout 60 > NUL' // Aștept sa porneasca
                             bat 'docker-compose exec elasticsearch curl --retry 10 --retry-delay 5 -s -f http://localhost:9200/_cluster/health || exit 1'
                         }
