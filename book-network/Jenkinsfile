@@ -49,7 +49,7 @@ pipeline {
 
             stage('Build Docker Image') {
                         steps {
-                            dir('book-network') {
+                            dir('docker/backend') {
                                 bat 'docker build -t bsn-api:1.0.0 .'
                             }
                         }
