@@ -42,7 +42,7 @@ pipeline {
             stage('Test') {
                 steps {
                     dir('book-network') {
-                        bat 'mvn test'
+                        bat 'mvn test -Dspring.datasource.url=jdbc:postgresql://localhost:5432/book_network_db'
                     }
                 }
             }
