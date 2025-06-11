@@ -49,8 +49,8 @@ pipeline {
 
             stage('Build Docker Image') {
                         steps {
-                            dir('docker/backend') {
-                                bat 'docker build -t bsn-api:1.0.0 .'
+                            dir('book-network') {
+                                bat 'docker build -t bsn-api:1.0.0 -f ../docker/backend/Dockerfile .'
                             }
                         }
             }
