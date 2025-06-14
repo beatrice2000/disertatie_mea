@@ -36,6 +36,8 @@ export class KeycloakService {
       this._profile = (await this.keycloak?.loadUserProfile()) as UserProfile;
       this._profile.token = this.keycloak?.token;
     }
+
+    localStorage.setItem('token', this.keycloak?.token || '');
   }
 
   login() {

@@ -24,14 +24,30 @@ services:
       - spring-network
   bsn-api:
     container_name: bsn-api
-    image: bsn-api:1.0.0
+    image: bsn-api:1.0.2
     ports:
       - 8088:8088
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - DB_URL=jdbc:postgresql://postgres-sql-bn:5432/book_network_db
+      - DB_URI=http://elasticsearch-bn:9200
     networks:
       - spring-network
     depends_on:
       - postgres
       - elasticsearch
+      - keycloak
+    command: ["sh", "-c", "sleep 60 && java -jar /app/book-network-1.0.1.jar"]
+
+  bsn-ui:
+    container_name: bsn-ui
+    image: bsn-ui:1.0.0
+    ports:
+      - 8081:80
+    networks:
+      - spring-network
+    depends_on:
+      - bsn-api
 
   keycloak:
     container_name: keycloak-bsn

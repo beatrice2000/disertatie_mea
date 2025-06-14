@@ -12,7 +12,7 @@ import {CodeInputModule} from "angular-code-input";
 import {HttpTokenInterceptor} from "./services/interceptor/http-token.interceptor";
 import {KeycloakService} from "./services/keycloak/keycloak.service";
 
-export function kcFactory(kcService: KeycloakService) {
+export function kcFactory(kcService: KeycloakService): () => Promise<any> {
   return () => kcService.init();
 }
 @NgModule({
